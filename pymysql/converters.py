@@ -150,12 +150,16 @@ def convert_timedelta(obj):
             (obj, tail) = obj.split('.')
             microseconds = int(tail)
         hours, minutes, seconds = obj.split(':')
+        negate = 1
+        if hours.startswith("-"):
+            hours = hours[1:]
+            negate = -1
         tdelta = datetime.timedelta(
             hours = int(hours),
             minutes = int(minutes),
             seconds = int(seconds),
             microseconds = microseconds
-            )
+            ) * negate
         return tdelta
     except ValueError:
         return None
